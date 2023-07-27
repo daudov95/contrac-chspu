@@ -1,0 +1,37 @@
+.user-panel {
+
+    &__wrap {
+        padding: 30px 0;
+    }
+
+    &__cards {
+        margin-top: 30px;
+    }
+
+    &__table {
+        margin-top: 30px;
+    }
+    
+}
+
+.points, .documents, .comments {
+    cursor: pointer;
+}
+
+.documents {
+
+    &__wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    a {
+        display: inline;
+        text-decoration: underline;
+
+        &:hover {
+            color: blue;
+        }
+    }
+}

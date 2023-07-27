@@ -20,8 +20,29 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'rank',
+        'table_id',
         'password',
+        'is_curator',
+        'is_admin',
     ];
+
+    public function getRoleAttribute()
+    {
+        $role = 'Пользователь';
+
+        if($this->is_curator == 1) $role = 'Куратор';
+        if($this->is_admin == 1) $role = 'Администратор';
+
+        return $role;
+    }
+
+
+    public function semesterUser()
+    {
+        return $this->hasOne(SemesterUser::class);
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.

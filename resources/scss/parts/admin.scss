@@ -1,0 +1,43 @@
+.btn-block+.btn-block {
+    margin-top: 0 !important;
+}
+
+.table__users {
+    margin-right: 10px;
+}
+
+.points, .documents, .comments {
+    cursor: pointer;
+}
+
+.custom-file-label {
+
+    &::after {
+        content: 'Выбрать'!important;
+    }
+}
+
+.card-header>.card-tools {
+    height: 24px;
+    display: flex;
+}
+
+.documents {
+
+    a {
+        display: block;
+    }
+}
+
+
+.document__destroy {
+    i {
+        pointer-events: none;
+    }
+}
+
+.delete-comment {
+    i {
+        pointer-events: none;
+    }
+}
