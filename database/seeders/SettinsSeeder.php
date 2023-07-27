@@ -14,7 +14,8 @@ class SettinsSeeder extends Seeder
     public function run(): void
     {
         DB::table('settings')->insert([
-            'year' => 2022,
+            'year' => 2023,
+            'semester' => '2',
         ]);
     }
 }
