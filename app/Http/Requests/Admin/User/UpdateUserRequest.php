@@ -25,7 +25,7 @@ class UpdateUserRequest extends FormRequest
             'id' => ['required', 'exists:users'],
             'name' => ['required', 'min:5'],
             'email' => ['required', 'email'],
-            'password' => ['nullable', 'alpha_dash', 'min:6'], // решить вопрос с пробелами
+            'password' => ['sometimes', 'nullable', 'regex:/^[A-Za-z0-9_]+$/', 'min:6'],
             'rank' => ['required', 'min:5'],
             'table_id' => ['required', 'exists:tables,id'],
         ];
@@ -41,6 +41,7 @@ class UpdateUserRequest extends FormRequest
             'password.required' => "Введите пароль",
             'password.min' => "Пароль должен содержать не менее 6 символов",
             'password.without_spaces' => 'Whitespace not allowed.',
+            'password.regex' => 'Пароль должен содержать только латинские буквы и цифры',
             'rank.required' => "Введите должность",
             'rank.min' => "Должность должен содержать не менее 5 символов",
             'table_id.required' => "Выберите категорию",

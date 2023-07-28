@@ -24,7 +24,7 @@ class StoreUserRequest extends FormRequest
         return [
             'name' => ['required', 'min:5'],
             'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'string', 'min:6'],
+            'password' => ['required', 'string', 'regex:/^[A-Za-z0-9_]+$/', 'min:6'],
             'rank' => ['required', 'min:5'],
             'table_id' => ['required', 'exists:tables,id'],
         ];
@@ -37,8 +37,10 @@ class StoreUserRequest extends FormRequest
             'name.min' => "ФИО должно содержать не менее 5 символов",
             'email.required' => "Введите E-mail",
             'email.email' => "Неправильный E-mail адрес",
+            'email.unique' => "Такой E-mail уже занят",
             'password.required' => "Введите пароль",
             'password.min' => "Пароль должен содержать не менее 6 символов",
+            'password.regex' => 'Пароль должен содержать только латинские буквы и цифры',
             'rank.required' => "Введите должность",
             'rank.min' => "Должность должен содержать не менее 5 символов",
             'table_id.required' => "Выберите категорию",

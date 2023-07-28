@@ -38,9 +38,13 @@
                                 @endphp
                             </td>
                             <td class="documents" data-id="{{ $question->id }}">
-                                @if (count($question->documents) > 0)
+                                @php
+                                    $q_documents = $documents->where('question_id', $question->id) ?? [];
+                                    // dump($q_documents);
+                                @endphp
+                                @if (count($q_documents) > 0)
                                     <div class="documents__wrap">
-                                        @foreach ($question->documents as $doc)
+                                        @foreach ($q_documents as $doc)
                                             <a href="{{ asset('storage/'. $doc->path) }}" target="_blank" data-document-id="{{ $doc->id }}">{{ $doc->name }}</a>
                                         @endforeach
                                     </div>
@@ -52,7 +56,7 @@
                                     @php
                                         $question_info = $semester_user_questions->where('question_id', $question->id)->first();
                                     @endphp
-                                    {{ $question_info ? $comments->where('question_id', $question_info->id)->where('user_id', Auth::id())->count() : 0 }}
+                                    {{ $question_info ? $comments->where('question_id', $question_info->id)->where('user_id', $semester_user->id)->count() : 0 }}
                                 </span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 114.44" width="20">
                                     <path d="M34.75 35.84A6.72 6.72 0 1 1 28 42.56a6.72 6.72 0 0 1 6.72-6.72ZM7 0h108.91a7 7 0 0 1 7 7v72.86a7 7 0 0 1-7 7H62.55l-26.41 19.59c-5 4.76-9.47 7.76-12.88 8-5 .3-7.61-3.1-7-11.56v-16H7a7 7 0 0 1-7-7V7a7 7 0 0 1 7-7Zm108.91 6.8H7a.17.17 0 0 0-.2.2v72.86A.17.17 0 0 0 7 80h12.64a3.4 3.4 0 0 1 3.4 3.4v19.49a2.09 2.09 0 0 1 0 .25c-.23 3.15-.27 4.48-.17 4.47 1.67-.1 4.77-2.46 8.75-6.24l.32-.26L59.2 80.87a3.36 3.36 0 0 1 2.24-.87h54.47a.17.17 0 0 0 .17-.17V7a.17.17 0 0 0-.17-.17Zm-55.47 29a6.72 6.72 0 1 1-6.73 6.72 6.72 6.72 0 0 1 6.73-6.72Zm25.69 0a6.72 6.72 0 1 1-6.73 6.72 6.72 6.72 0 0 1 6.73-6.72Z" style="fill-rule:evenodd"/>

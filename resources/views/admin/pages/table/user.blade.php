@@ -71,9 +71,13 @@
                                                     {{  $points }}
                                                 </td>
                                                 <td class="documents" data-id="{{ $question->id }}" data-question_curator_id="{{ $question->curator_id }}">
-                                                    @if (count($question->documents) > 0)
+                                                    @php
+                                                        $q_documents = $documents->where('question_id', $question->id) ?? [];
+                                                        // dump($q_documents);
+                                                    @endphp
+                                                    @if (count($q_documents) > 0)
                                                         <div class="documents__wrap">
-                                                            @foreach ($question->documents as $doc)
+                                                            @foreach ($q_documents as $doc)
                                                                 <a href="{{ asset('storage/'. $doc->path) }}" target="_blank" data-document-id="{{ $doc->id }}">{{ $doc->name }}</a>
                                                             @endforeach
                                                         </div>
