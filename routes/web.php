@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['as' => 'lk.', 'middleware' => ['auth']], function () {
     Route::get('/', [IndexController::class, 'index'])->name('index');
     Route::get('/documents', [IndexController::class, 'documents'])->name('documents');
+    Route::get('/settings', [IndexController::class, 'settings'])->name('settings');
+    Route::post('/settings/update', [IndexController::class, 'settingsUpdate'])->name('settings.update');
 });
 
 

@@ -15,6 +15,7 @@ use App\Models\Table;
 use App\Models\TableQuestion;
 use App\Models\TableQuestionUser;
 use App\Models\User;
+use App\Models\UserDocument;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -171,9 +172,10 @@ class TableController extends Controller
         $semester_user = $user;
         $semester_user_questions = TableQuestionUser::query()->where('user_id', $semester_user->id)->where('table_id', $semester_user->table_id)->get();
         $comments = Comment::all();
+        $documents = UserDocument::query()->where('user_id', $semester_user->id)->get();
 
         // dd($semester_user->questions);
-        return view('admin.pages.table.user', compact('semester_user', 'semester_user_questions', 'comments'));
+        return view('admin.pages.table.user', compact('semester_user', 'semester_user_questions', 'comments', 'documents'));
     }
 
     public function addUsers(Table $table)

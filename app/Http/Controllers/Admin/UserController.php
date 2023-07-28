@@ -32,18 +32,8 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        // dd($request->all());
-
-        $is_curator = '0';
-        $is_admin = '0';
-
-        if(isset($request->is_curator) && $request->is_curator == 'on') {
-            $is_curator = '1';
-        }
-
-        if(isset($request->is_admin) && $request->is_admin == 'on') {
-            $is_admin = '1';
-        }
+        $is_curator = $request->is_curator && $request->is_curator == 'on' ? '1' : '0';
+        $is_admin = $request->is_admin && $request->is_admin == 'on' ? '1' : '0';
 
         $user = User::create([
             'name' => $request->name,
@@ -55,7 +45,6 @@ class UserController extends Controller
             'is_admin' => $is_admin,
         ]);
 
-        // Сделать добавление в таблицу semester_users
         $settings = Setting::find(1);
         $semester = Semester::query()->where('year', $settings->year)->where('semester', $settings->semester)->first();
 
@@ -79,16 +68,19 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request)
     {
-        // dd($request->all());
         $user = User::find($request->id);
 
         $is_curator = $request->is_curator && $request->is_curator == 'on' ? '1' : '0';
         $is_admin = $request->is_admin && $request->is_admin == 'on' ? '1' : '0';
-
+        $password = trim($request->password);
+        
+        if(empty($password)) {
+            $password = null;
+        }
 
         $user->name = $request->name;
         $user->email = $request->email;
-        if($request->password) $user->password = Hash::make($request->password);
+        if(!is_null($password)) $user->password = Hash::make($password);
         $user->rank = $request->rank;
         $user->table_id = $request->table_id;
         $user->is_curator = $is_curator;

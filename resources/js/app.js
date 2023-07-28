@@ -102,6 +102,7 @@ const documents = document.querySelectorAll('.documents');
 if(documents) {
     documents.forEach(p => {
         p.addEventListener('click', async (e) => {
+            e.preventDefault();
             const target = e.currentTarget;
             const id = target.dataset.id;
             const user_id = document.querySelector('[name="user_id"]').value;

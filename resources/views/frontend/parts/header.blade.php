@@ -16,7 +16,7 @@
             <div class="header-menu">
                 <span>{{ auth()->user()->name }}</span>
                 <div class="header-dropdown">
-                    <a href="#" class="header-dropdown__link">Настройки</a>
+                    <a href="{{ route('lk.settings') }}" class="header-dropdown__link">Настройки</a>
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
                         <button class="header-dropdown__link">Выход</button>

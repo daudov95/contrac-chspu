@@ -40,7 +40,7 @@
                 <h3 class="card-title">Все пользователи данного критерия</h3>
                 @if (auth()->user()->is_admin)
                 <div style="margin-left: auto">
-                    <a href="{{ route('admin.table.users.add', ['table' => $table->id]) }}" style="margin-left: auto; margin-right: 20px;">Добавить пользователей</a>
+                    {{-- <a href="{{ route('admin.table.users.add', ['table' => $table->id]) }}" style="margin-left: auto; margin-right: 20px;">Добавить пользователей</a> --}}
                     <a href="{{ route('admin.table.export', ['table' => $table->id]) }}" style="margin-left: auto">Скачать Excel <i class="nav-icon fas fa-sharp fa-solid fa-file-excel"></i></a>
                 </div>
                 @endif
