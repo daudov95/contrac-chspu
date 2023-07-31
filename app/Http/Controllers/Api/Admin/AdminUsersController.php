@@ -12,8 +12,6 @@ class AdminUsersController extends Controller
 
         $usersList = [...$request->user_ids];
 
-
-
         return response()->json(['status' => true, 'message' => $usersList]);
     }
 }
