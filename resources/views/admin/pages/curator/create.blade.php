@@ -26,7 +26,6 @@
     
 <div class="row">
     <div class="col-12">
-        {{-- {{ print_r(explode('.', request()->route()->getName())) }} --}}
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -52,10 +51,10 @@
                         <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Введите имя">
                     </div>
 
-
                     <div class="form-group">
                         <label for="user">Пользователь</label>
-                        <select name="user_id" id="user" class="form-control">
+
+                        <select name="user_id" id="user" class="form-control select-2">
                             <option value>Выберите пользователя</option>
                             @foreach ($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -75,4 +74,10 @@
 </div>
             
 
+@endsection
+
+@section('custom_script')
+    <script>
+        $('.select-2').select2({});
+    </script>
 @endsection
