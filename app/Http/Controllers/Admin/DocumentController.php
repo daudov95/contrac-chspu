@@ -81,7 +81,7 @@ class DocumentController extends Controller
             $filename = str()->slug(pathinfo($filenameWithExt, PATHINFO_FILENAME));
             $extention = $request->file('document')->getClientOriginalExtension();
             $fileNameToStore = "documents/".$filename."_".time().".".$extention;
-            $request->file('document')->storeAs('public', $fileNameToStore);
+            $request->file('document')->storeAs($fileNameToStore);
         }
         $urlDocument = $fileNameToStore ?? null;
 
@@ -91,7 +91,7 @@ class DocumentController extends Controller
     public function destroyFile($oldFile)
     {
         if(Storage::disk('public')->exists($oldFile)){
-            Storage::delete('public/'. $oldFile);
+            Storage::delete($oldFile);
         }
     }
 }

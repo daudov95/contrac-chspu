@@ -144,7 +144,7 @@ class QuestionController extends Controller
                 $check = in_array($extension, $allowedfileExtension);
                 
                 if($check) {
-                    $file->storeAs('public', $fileNameToStore);
+                    $file->storeAs($fileNameToStore);
                     
                     $new = UserDocument::create([
                         'name' => $filenameOriginal,

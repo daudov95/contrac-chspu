@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             SemesterSeeder::class,
-            // CriteriaSeeder::class,
             TableSeeder::class,
             UserSeeder::class,
             SemesterUserSeeder::class,
