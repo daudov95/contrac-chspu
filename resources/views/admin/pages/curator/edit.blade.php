@@ -58,10 +58,10 @@
                         <input type="text" class="form-control" id="name" name="name" value="{{ $curator->name }}" placeholder="Введите наименование">
                     </div>
 
-
                     <div class="form-group">
                         <label for="user">Пользователь</label>
-                        <select name="user_id" id="user" class="form-control">
+
+                        <select name="user_id" id="user" class="form-control select-2">
                             <option value>Выберите пользователя</option>
                             @foreach ($users as $user)
                                 <option value="{{ $user->id }}" {{ $curator->user_id == $user->id ? "selected" : "" }}>{{ $user->name }}</option>
@@ -78,7 +78,14 @@
         </div>
 
     </div>
-</div>
-            
 
+    
+</div>
+
+@endsection
+
+@section('custom_script')
+    <script>
+        $('.select-2').select2({});
+    </script>
 @endsection
