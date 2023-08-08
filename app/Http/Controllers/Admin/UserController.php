@@ -16,7 +16,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::query()->where('is_hide', '!=', '1')->paginate(8);
+        $users = User::query()->where('is_hide', '!=', '1')->paginate(30);
         return view('admin.pages.user.list', compact('users'));
     }
 
