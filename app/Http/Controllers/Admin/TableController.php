@@ -142,7 +142,7 @@ class TableController extends Controller
                 ->orWhere('is_curator', '!=', 1);
         });
 
-        $users = SemesterUser::query()->whereNotIn('user_id', $hide_users)->where('table_id', $table->id)->paginate(10);
+        $users = SemesterUser::query()->whereNotIn('user_id', $hide_users)->where('table_id', $table->id)->paginate(30);
         $user_answers = TableQuestionUser::query()->where('table_id', $table->id)->get();
 
         $type1 = DB::table('table_question_users')
