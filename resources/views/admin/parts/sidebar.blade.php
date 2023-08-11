@@ -118,7 +118,7 @@
 
           <li class="nav-item {{ explode('.', request()->route()->getName())[1] == 'curator' ? 'menu-open' : '' }}">
             <a href="{{ route('admin.curator.list')}}" class="nav-link {{ explode('.', request()->route()->getName())[1] == 'curator' ? 'active' : '' }}">
-              <i class="nav-icon fas fa-window-restore"></i>
+              <i class="nav-icon fas fa-user-tie"></i>
               <p>
                 Кураторы
                 <i class="fas fa-angle-left right"></i>
@@ -146,7 +146,7 @@
           @if (auth()->user()->is_admin)
           <li class="nav-item {{ explode('.', request()->route()->getName())[1] == 'document' ? 'menu-open' : '' }}">
             <a href="{{ route('admin.document.list')}}" class="nav-link {{ explode('.', request()->route()->getName())[1] == 'document' ? 'active' : '' }}">
-              <i class="nav-icon fas fa-window-restore"></i>
+              <i class="nav-icon fas fa-file-invoice"></i>
               <p>
                 Документы
                 <i class="fas fa-angle-left right"></i>
@@ -174,7 +174,7 @@
           @if (auth()->user()->is_admin)
           <li class="nav-item {{ explode('.', request()->route()->getName())[1] == 'user' ? 'menu-open' : '' }}">
             <a href="{{ route('admin.user.list')}}" class="nav-link {{ explode('.', request()->route()->getName())[1] == 'user' ? 'active' : '' }}">
-              <i class="nav-icon fas fa-window-restore"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Пользователи
                 <i class="fas fa-angle-left right"></i>
@@ -185,6 +185,13 @@
                 <a href="{{ route('admin.user.list')}}" class="nav-link">
                   <i class="far fas fa-list nav-icon"></i>
                   <p>Все пользователи</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('admin.user.search') }}" class="nav-link">
+                  <i class="fas fa-search nav-icon"></i>
+                  <p>Поиск пользователя</p>
                 </a>
               </li>
 

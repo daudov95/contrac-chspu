@@ -112,6 +112,7 @@ Route::group(['as' => 'admin.', 'middleware' => ['auth', 'dashboardAccess'], 'pr
     Route::group(['as' => 'user.', 'prefix' => 'users', 'controller' => UserController::class], function() {
         Route::get('/', 'index')->name('list');
         Route::get('/create', 'create')->name('create');
+        Route::get('/search/{name?}', 'search')->name('search');
         Route::post('/store', 'store')->name('store');
         Route::get('/edit/{user}', 'edit')->name('edit');
         Route::post('/update', 'update')->name('update');

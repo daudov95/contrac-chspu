@@ -107,4 +107,17 @@ class UserController extends Controller
             return response()->json(['status' => false, 'message' => 'Ошибка при удалении пользователя']);
         }
     }
+
+
+    public function search(Request $request)
+    {
+        $name = $request->name;
+
+        if($name) $users = User::query()->where('is_hide', '!=', '1')->where('name', 'like', "%". $name ."%")->paginate(8)->withQueryString();
+        else $users = User::query()->where('is_hide', '!=', '1')->paginate(8);
+
+        return view('admin.pages.user.search', compact('users'));
+    }
+
+
 }
