@@ -163,6 +163,36 @@ class TableController extends Controller
 
         return view('admin.pages.table.users', compact('users', 'table','user_answers', 'type1', 'type2', 'type3'));
     }
+    public function usersSearch(Table $table, Request $request)
+    {
+        $name = $request->name;
+
+        $hide_users = User::select('id')->where(function ($query) {
+            $query->where('is_admin', '!=', 1)
+                ->orWhere('is_curator', '!=', 1);
+        });
+
+        $users = SemesterUser::query()->whereNotIn('user_id', $hide_users)->where('table_id', $table->id)->where('name', 'like', "%". $name ."%")->paginate(30)->withQueryString();
+        $user_answers = TableQuestionUser::query()->where('table_id', $table->id)->get();
+
+        $type1 = DB::table('table_question_users')
+            ->select('points', 'user_id')
+            ->join('table_questions', 'table_questions.id', '=', 'table_question_users.question_id')
+            ->where('table_questions.type', '1')
+            ->get();
+        $type2 = DB::table('table_question_users')
+            ->select('points', 'user_id')
+            ->join('table_questions', 'table_questions.id', '=', 'table_question_users.question_id')
+            ->where('table_questions.type', '2')
+            ->get();
+        $type3 = DB::table('table_question_users')
+            ->select('points', 'user_id')
+            ->join('table_questions', 'table_questions.id', '=', 'table_question_users.question_id')
+            ->where('table_questions.type', '3')
+            ->get();
+
+        return view('admin.pages.table.search', compact('users', 'table','user_answers', 'type1', 'type2', 'type3'));
+    }
 
 
 
