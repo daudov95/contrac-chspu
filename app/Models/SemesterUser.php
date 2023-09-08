@@ -17,6 +17,11 @@ class SemesterUser extends Model
         return $this->hasMany(TableQuestion::class, 'table_id', 'table_id');
     }
 
+    public function documents()
+    {
+        return $this->hasMany(UserDocument::class, 'user_id', 'id');
+    }
+
     public function table()
     {
         return $this->hasOne(Table::class, 'id', 'table_id');

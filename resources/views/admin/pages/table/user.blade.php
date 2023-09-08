@@ -19,6 +19,13 @@
         margin-top: 0 !important;
         margin-left: 10px;
     }
+
+    .text-hidden {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        /* width: 100%; */
+    }
 </style>
 
     
@@ -70,15 +77,14 @@
                                                     @endphp
                                                     {{  $points }}
                                                 </td>
-                                                <td class="documents" data-id="{{ $question->id }}" data-question_curator_id="{{ $question->curator_id }}">
+                                                <td class="documents" width="200" data-id="{{ $question->id }}" data-question_curator_id="{{ $question->curator_id }}">
                                                     @php
                                                         $q_documents = $documents->where('question_id', $question->id) ?? [];
-                                                        // dump($q_documents);
                                                     @endphp
                                                     @if (count($q_documents) > 0)
-                                                        <div class="documents__wrap">
+                                                        <div class="documents__wrap" style="width: 200px;">
                                                             @foreach ($q_documents as $doc)
-                                                                <a href="{{ asset('storage/'. $doc->path) }}" target="_blank" data-document-id="{{ $doc->id }}">{{ $doc->name }}</a>
+                                                                <a href="{{ asset('storage/'. $doc->path) }}" target="_blank" data-document-id="{{ $doc->id }}" class="text-hidden">{{ $doc->name }}</a>
                                                             @endforeach
                                                         </div>
                                                     @endif
@@ -88,8 +94,6 @@
                                                     <span>
                                                         @php
                                                             $question_info = $semester_user_questions->where('question_id', $question->id)->first();
-
-                                                            // dump($question_info);
                                                         @endphp
                                                         {{ $question_info ? $comments->where('question_id', $question_info->id)->where('user_id', $semester_user->id)->count() : 0 }}
                                                     </span>

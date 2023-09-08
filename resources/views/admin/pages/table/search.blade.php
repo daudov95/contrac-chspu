@@ -138,6 +138,8 @@
 @endsection
 
 @section('custom_script')
+
+    <script src="{{ asset("assets/js/admin.js") }}"></script>
     <script>
         const reset = document.querySelector('.reset-form');
 

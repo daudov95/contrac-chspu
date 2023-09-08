@@ -64,6 +64,7 @@ class AdminQuestionController extends Controller
 
         try {
             $document = UserDocument::query()->where('id', $request->document_id)->where('user_id', $request->user_id)->first();
+
             $this->destroyFile($document->path);
             $document->delete();
             session()->flash('success', 'Вы успешно удалили показатель');
@@ -74,11 +75,10 @@ class AdminQuestionController extends Controller
         }
     }
 
-
     public function destroyFile($oldFile)
     {
         if(Storage::disk('public')->exists($oldFile)){
-            Storage::delete('public/'. $oldFile);
+            Storage::delete($oldFile);
         }
     }
 
