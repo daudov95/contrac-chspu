@@ -87,7 +87,7 @@ Route::group(['as' => 'admin.', 'middleware' => ['auth', 'dashboardAccess'], 'pr
         Route::get('/{table}/users/search/{name?}', 'usersSearch')->name('users.search');
         Route::get('/users/{user}', 'user')->name('user');
         
-        Route::get('/{table}/users/add', 'addUsers')->name('users.add');
+        Route::get('/{table}/users/add/{name?}', 'addUsers')->name('users.add');
         Route::post('/{table}/users/destroy', 'destroyUser')->name('users.destroy');
     });
 

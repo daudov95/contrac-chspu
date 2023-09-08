@@ -21,7 +21,7 @@ class CuratorController extends Controller
 
     public function create()
     {
-        $users = User::all();
+        $users = User::query()->where('is_curator', '1')->get();
         return view('admin.pages.curator.create', compact('users'));
     }
 
@@ -38,8 +38,7 @@ class CuratorController extends Controller
 
     public function edit(Curator $curator)
     {
-        // dd($semester);
-        $users = User::all();
+        $users = User::query()->where('is_curator', '1')->get();
         return view('admin.pages.curator.edit', compact('curator','users'));
     }
 

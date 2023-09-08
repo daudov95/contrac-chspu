@@ -25,7 +25,7 @@ class UsersImport implements ToCollection
             $rank = trim($row[1]);
             $table_id = trim($row[2]);
 
-            $user = User::create([
+            $user = User::firstOrCreate([
                 'name' => $name,
                 'email' => $email,
                 'password' => Hash::make($password),
@@ -34,7 +34,7 @@ class UsersImport implements ToCollection
             ]);
             
 
-            SemesterUser::create([
+            SemesterUser::firstOrCreate([
                 'name' => $name,
                 'rank' => $rank,
                 'user_id' => $user->id,

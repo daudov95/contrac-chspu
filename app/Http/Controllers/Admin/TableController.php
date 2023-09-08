@@ -19,6 +19,7 @@ use App\Models\UserDocument;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class TableController extends Controller
 {
@@ -208,16 +209,25 @@ class TableController extends Controller
         return view('admin.pages.table.user', compact('semester_user', 'semester_user_questions', 'comments', 'documents'));
     }
 
-    public function addUsers(Table $table)
+    public function addUsers(Table $table, Request $request)
     {
         $hide_users = SemesterUser::select('user_id')->where('table_id', '=', $table->id);
+        $name = $request->name;
 
-        $users = User::query()
-                    ->where('is_hide', '!=', '1')
-                    ->where('is_admin', '!=', '1')
-                    ->where('is_curator', '!=', '1')
-                    ->whereNotIn('id', $hide_users)
-                    ->paginate(100);
+        if($name) $users = User::query()
+                                ->where('is_hide', '!=', '1')
+                                ->where('is_admin', '!=', '1')
+                                ->where('is_curator', '!=', '1')
+                                ->whereNotIn('id', $hide_users)
+                                ->where('name', 'like', "%". $name ."%")
+                                ->paginate(100)->withQueryString();
+        else $users = User::query()
+                            ->where('is_hide', '!=', '1')
+                            ->where('is_admin', '!=', '1')
+                            ->where('is_curator', '!=', '1')
+                            ->whereNotIn('id', $hide_users)
+                            ->paginate(100);
+
 
         // dd($users);
         return view('admin.pages.table.add-users', compact('users', 'table'));
@@ -227,12 +237,25 @@ class TableController extends Controller
     {
         try {
             $user = SemesterUser::query()->where('table_id', $table->id)->where('id', $request->id)->first();
+            $documents = $user->documents()->where('table_id', $table->id)->get();
+
+            foreach ($documents as $document) {
+                $this->destroyFile($document->path);
+            }
+
             $user->delete();
             session()->flash('success', 'Вы успешно удалили пользователя');
 
             return response()->json(['status' => true, 'message' => 'Пользователь успешно удален']);
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'message' => 'Ошибка при удалении пользователя']);
+        }
+    }
+
+    public function destroyFile($oldFile)
+    {
+        if(Storage::disk('public')->exists($oldFile)){
+            Storage::delete($oldFile);
         }
     }
 }

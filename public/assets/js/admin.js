@@ -203,7 +203,7 @@ if(documentsList) {
 
     const data = {user_id: Number(user_id), document_id: Number(document_id), question_curator_id: Number(question_curator_id), curator_id: Number(curator_id)};
 
-    console.log(data);
+    // console.log(data);
 
     let response = await fetch('/api/admin/documents/destroy', {
         method: 'POST',
@@ -428,8 +428,9 @@ if(addUserBtn) {
     response = await response.json();
 
     if(response.status) {
-      // alert('Пользователи успешно добавлены');
-      console.log(response);
+      alert('Пользователи успешно добавлены');
+      // console.log(response);
+      location.reload();
     }
 
   })
