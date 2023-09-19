@@ -22,6 +22,12 @@ class QuestionController extends Controller
         return response()->json(['data' => $question, 'status' => true], 200);
     }
 
+    public function questionOptions(int $id)
+    {
+        $question = TableQuestion::findOrFail($id);
+        return response()->json(['data' => $question->options, 'status' => true], 200);
+    }
+
     public function userQuestion(int $user_id, int $question_id, int $table_id, string $token = "null")
     {
         if($token !== env('API_TOKEN')) {
