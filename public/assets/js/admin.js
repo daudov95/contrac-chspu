@@ -48,6 +48,7 @@ points.forEach(link => link.addEventListener('click', async function(e) {
   document.querySelector('[name="question_curator_id"]').value = this.dataset.question_curator_id;
 
   const points = document.querySelector('#pointsInput');
+  const options = document.querySelector('.points-options');
   
   let pointsDefault = 0;
 
@@ -59,12 +60,24 @@ points.forEach(link => link.addEventListener('click', async function(e) {
   const response = await fetch('/api/question/'+id);
   const res = await response.json();
 
+  let option = await fetch('/api/question/'+id+'/options');
+  option = await option.json();
+
   if(!res.status) return;
 
   try {
       const token = "jJsoyYPsmn15!aagu";
       const uresponse = await fetch(`/api/user/${user_id}/question/${id}/table/${table_id}/${token}`);
       const ures = await uresponse.json();
+
+      option = option.data.split('|');
+      const optionList = `
+        <ul style="padding-left:0px; list-style: none;">
+            ${option.map(el => `<li>${el.trim()}</li>`).join('')}
+        </ul>`;
+
+      // console.log(optionList);
+      options.innerHTML = optionList;
 
       if(ures.data.points) pointsDefault = ures.data.points; 
   } catch (e) {

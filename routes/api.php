@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/question/{id}', [QuestionController::class, 'question']);
+Route::get('/question/{id}/options', [QuestionController::class, 'questionOptions']);
 Route::get('/user/{user_id}/question/{id}/table/{table_id}/{token?}', [QuestionController::class, 'userQuestion']);
 Route::post('/question/store', [QuestionController::class, 'store']);
 

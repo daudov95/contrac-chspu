@@ -136,6 +136,12 @@
                 </button>
             </div>
             <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="pointsInput">Критерии оценки</label>
+                    <p class="points-options"></p>
+                </div>
+
                 <div class="form-group">
                     <label for="pointsInput">Введите баллы</label>
                     <input type="number" class="form-control" id="pointsInput"  name="points" placeholder="Введите баллы" min="0">
