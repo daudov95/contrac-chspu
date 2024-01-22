@@ -70,6 +70,7 @@
                             <option value="1" {{ old('type') == 1 ? "selected" : ""}}>Научно-исследовательская и инновационная деятельность</option>
                             <option value="2" {{ old('type') == 2 ? "selected" : ""}}>Образовательная деятельность</option>
                             <option value="3" {{ old('type') == 3 ? "selected" : ""}}>Организационно-воспитательная и иная деятельность</option>
+                            <option value="4" {{ old('type') == 4 ? "selected" : ""}}>Интенсивность и высокие результаты работы, качество выполняемых работ</option>
                         </select>
                     </div>
 
