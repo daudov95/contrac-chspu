@@ -32,7 +32,7 @@
         @endif
 
         <div class="alert alert-primary" role="alert">
-            Баллы указаны в форме за: научно-исследовательскую работу/учебную и учебно-метадическую работу/воспитательную и иную работу
+            Баллы указаны в форме за: научно-исследовательскую работу/учебную и учебно-метадическую работу/воспитательную и иную работу/Интенсивность и высокие результаты работы, качество выполняемых работ
         </div>
 
         <div class="card">
@@ -77,10 +77,11 @@
                                                     $b1 = $type1->where('user_id', $user->id)->sum('points');
                                                     $b2 = $type2->where('user_id', $user->id)->sum('points');
                                                     $b3 = $type3->where('user_id', $user->id)->sum('points');
+                                                    $b4 = $type4->where('user_id', $user->id)->sum('points');
 
-                                                    $points = "$b1/$b2/$b3"; 
+                                                    $points = "$b1/$b2/$b3/$b4"; 
                                                 @endphp
-                                                <td>{{ $points ? $points : '0/0/0' }}</td>
+                                                <td>{{ $points ? $points : '0/0/0/0' }}</td>
                                                 
                                                 <td>
                                                     <div class="table-action">

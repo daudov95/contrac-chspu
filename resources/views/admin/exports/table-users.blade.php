@@ -7,6 +7,7 @@
         <th>Научно-исследовательская работа</th>
         <th>Учебная и учебно-метадическая работа</th>
         <th>Воспитательная и иная работа</th>
+        <th>Интенсивность и высокие результаты работы, качество выполняемых работ</th>
     </tr>
     </thead>
     <tbody>
@@ -19,10 +20,12 @@
                 $b1 = $type1->where('user_id', $user->id)->sum('points');
                 $b2 = $type2->where('user_id', $user->id)->sum('points');
                 $b3 = $type3->where('user_id', $user->id)->sum('points');
+                $b4 = $type3->where('user_id', $user->id)->sum('points');
             @endphp
             <td>{{ $b1 ? $b1 : '0' }}</td>
             <td>{{ $b2 ? $b2 : '0' }}</td>
             <td>{{ $b3 ? $b3 : '0' }}</td>
+            <td>{{ $b4 ? $b4 : '0' }}</td>
         </tr>
     @endforeach
     </tbody>

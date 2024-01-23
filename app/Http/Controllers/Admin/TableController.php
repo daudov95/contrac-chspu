@@ -162,7 +162,13 @@ class TableController extends Controller
             ->where('table_questions.type', '3')
             ->get();
 
-        return view('admin.pages.table.users', compact('users', 'table','user_answers', 'type1', 'type2', 'type3'));
+        $type4 = DB::table('table_question_users')
+            ->select('points', 'user_id')
+            ->join('table_questions', 'table_questions.id', '=', 'table_question_users.question_id')
+            ->where('table_questions.type', '4')
+            ->get();
+
+        return view('admin.pages.table.users', compact('users', 'table','user_answers', 'type1', 'type2', 'type3', 'type4'));
     }
     public function usersSearch(Table $table, Request $request)
     {
@@ -192,7 +198,13 @@ class TableController extends Controller
             ->where('table_questions.type', '3')
             ->get();
 
-        return view('admin.pages.table.search', compact('users', 'table','user_answers', 'type1', 'type2', 'type3'));
+        $type4 = DB::table('table_question_users')
+            ->select('points', 'user_id')
+            ->join('table_questions', 'table_questions.id', '=', 'table_question_users.question_id')
+            ->where('table_questions.type', '4')
+            ->get();
+
+        return view('admin.pages.table.search', compact('users', 'table','user_answers', 'type1', 'type2', 'type3', 'type4'));
     }
 
 
