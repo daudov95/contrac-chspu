@@ -146,10 +146,8 @@ if(documents) {
 }
 
 
-const documentDestroy = (data, question_id) => {
+const documentDestroy = () => {
     const links = document.querySelectorAll(`.document__destroy`);
-
-    // api/documents/destroy
 
     if(links) {
         links.forEach(link => {
@@ -175,9 +173,9 @@ const documentDestroy = (data, question_id) => {
                     document.querySelector(`a[data-document-id="${target.dataset.documentId}"]`).remove();
                     // loadDocumnet(response.data, formData.get('question_id'));
                     // popupClose();
+                } else {
+                    alert(response.message);
                 }
-            
-                console.log(response)
             })
         })
     }
@@ -213,14 +211,14 @@ const uploadDocument = async () => {
         loadDocumnet(response.data, formData.get('question_id'));
         popupClose();
     }
-
-    console.log(response)
+    else {
+        alert(response.message);
+    }
 }
 
 
 
 const popupCloseBtn = document.querySelector('.popup__close');
-// const popupOverlay = document.querySelector('.popup');
 
 if(popupCloseBtn) {
     popupCloseBtn.addEventListener('click', (e) => {
@@ -228,15 +226,6 @@ if(popupCloseBtn) {
         popupClose();
     })
 }
-
-// if(popupOverlay) {
-//     popupOverlay.addEventListener('click', (e) => {
-
-//         if(e.target === e.currentTarget) {
-//             popupClose();
-//         }
-//     })
-// }
 
 
 const popupSend = document.querySelector('.popup__btn');
@@ -248,19 +237,15 @@ if(popupSend) {
         const form = new FormData(e.target.parentNode);
         const formData = {user_id: form.get('user_id'), question_id: form.get('question_id'), table_id: form.get('table_id'), points: form.get('points')};
 
-        // return console.log(formData);
-
         const isDocument = document.querySelector('.popup-documents');
         if(isDocument) {
             uploadDocument();
             return;
         }
-
         
         const headers = new Headers({
             'Content-Type': 'application/json'
         });
-
 
         const response = await fetch('api/question/store', {
             method: 'post',
@@ -271,10 +256,13 @@ if(popupSend) {
 
         // return console.log(data);
 
-        if(data.status === true) alert('Изменения сохранены!');
-        document.querySelector(`[data-id="${form.get('question_id')}"]`).textContent = form.get('points');
-
-
+        if(data.status === true) {
+            alert('Изменения сохранены!');
+            document.querySelector(`[data-id="${form.get('question_id')}"]`).textContent = form.get('points');
+        }
+        else {
+            alert(data.message);
+        }
     })
 }
 
@@ -287,17 +275,10 @@ const comments = document.querySelectorAll('.comments');
 
 
 const loadComments = async (id, user_id) => {
-
     let response = await fetch(`api/comments/${id}/${user_id}`, {
         method: 'get',
     })
     response = await response.json();
-
-    // if(response.status) {
-    //     // popupClose();
-    // }
-
-    console.log(response)
 
     return response.data;
 }

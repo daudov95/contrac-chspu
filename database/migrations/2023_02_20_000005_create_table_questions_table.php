@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('table_id');
             $table->foreign('curator_id')->references('id')->on('curators');
             $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');
-            $table->enum('type', [1, 2, 3]);
+            $table->enum('type', [1, 2, 3, 4]);
             $table->integer('order')->default(0);
             $table->timestamps();
         });

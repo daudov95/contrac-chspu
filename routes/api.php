@@ -30,6 +30,8 @@ Route::get('/comments/{id}/{user_id}', [QuestionController::class, 'comments']);
 
 
 // ADMIN
+Route::post('/admin/document/store', [AdminQuestionController::class, 'documentUpload']);
+
 Route::post('/admin/question/store', [AdminQuestionController::class, 'adminStore']);
 Route::post('/admin/documents/destroy', [AdminQuestionController::class, 'destoyDocument']);
 Route::post('/admin/comments/store', [AdminQuestionController::class, 'commentStore']);

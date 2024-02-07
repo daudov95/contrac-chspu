@@ -56,7 +56,12 @@ class TableUsersExport implements FromView
             ->join('table_questions', 'table_questions.id', '=', 'table_question_users.question_id')
             ->where('table_questions.type', '3')
             ->get();
+        $type4 = DB::table('table_question_users')
+            ->select('points', 'user_id')
+            ->join('table_questions', 'table_questions.id', '=', 'table_question_users.question_id')
+            ->where('table_questions.type', '4')
+            ->get();
 
-        return view('admin.exports.table-users', compact('users', 'user_answers', 'type1', 'type2', 'type3'));
+        return view('admin.exports.table-users', compact('users', 'user_answers', 'type1', 'type2', 'type3', 'type4'));
     }
 }

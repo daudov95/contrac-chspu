@@ -118,13 +118,11 @@ if(pointsChange) {
     });
     const data = await response.json();
   
-    // return console.log(data);
-  
     if(data.status === true) {
       alert('Изменения сохранены!');
       document.querySelector(`[data-id="${question_id}"]`).textContent = points.value;
     }else {
-      alert('Вы не являетесь куратором по данному критерию');
+      alert(data.message);
     }
   
   });
@@ -138,6 +136,62 @@ const documents = document.querySelectorAll('.documents');
 const documentsList = document.querySelectorAll('.documents-list');
 
 
+const sendDocument = document.querySelector('.document-upload');
+
+if(sendDocument) {
+  sendDocument.addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const question_id = document.querySelector('[name="question_id"]').value;
+    const user_id = document.querySelector('[name="user_id"]').value;
+    const question_curator_id = document.querySelector('[name="question_curator_id"]').value;
+  
+    const curator_id = document.querySelector('[name="curator_id"]').value;
+    const table_id = document.querySelector('[name="table_id"]').value;
+
+    const formData = new FormData(document.querySelector('.upload-form-user'));
+
+    formData.append('user_id', user_id);
+    formData.append('question_id', question_id);
+    formData.append('question_curator_id', question_curator_id);
+    formData.append('table_id', table_id);
+    formData.append('curator_id', curator_id);
+  
+    let response = await fetch(`/api/admin/document/store`, {
+      method: 'POST',
+      body: formData,
+    });
+  
+    response = await response.json();
+
+    console.log(response);
+  
+    if(response.status) {
+      alert('Документы успешно добавлены');
+      loadDocumnetsLinks(question_id, response.data);
+      const load = await loadDocumnets(question_id, user_id, table_id);
+
+    }else {
+      alert(response.message);
+    }
+  });
+}
+
+const loadDocumnetsLinks = (question_id, data) => {
+  const wrap = document.querySelector(`.documents[data-id="${question_id}"]`);
+  const wrapInner = wrap.querySelector('.documents__wrap');
+
+
+  const html = data.map(el => `<a href="/storage/${el.path}" target="_blank" data-document-id="${el.id}" class="text-hidden">${el.name}</a>`
+    ).join('');
+  const withWrap = `<div class="documents__wrap">${html}</div>`;
+
+  if(!wrapInner) {
+    wrap.insertAdjacentHTML('afterbegin', withWrap);
+  } else {
+    wrapInner.insertAdjacentHTML('afterbegin', html);
+  }
+}
 
 
 const loadDocumnets = async (question_id, user_id, table_id) => {
@@ -216,8 +270,6 @@ if(documentsList) {
 
     const data = {user_id: Number(user_id), document_id: Number(document_id), question_curator_id: Number(question_curator_id), curator_id: Number(curator_id)};
 
-    // console.log(data);
-
     let response = await fetch('/api/admin/documents/destroy', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -232,7 +284,7 @@ if(documentsList) {
         document.querySelector(`a[data-document-id="${document_id}"]`).remove();
         const load = await loadDocumnets(question_id, user_id, table_id);
     }else {
-      alert("Вы не являетесь куратором по данному критерию");
+      alert(response.message);
     }
 
   }));
@@ -350,13 +402,8 @@ if(sendComment) {
     }else {
       alert(response.message);
     }
-  
-    // console.log('send', response);
   });
 }
-
-
-
 
 
 const deleteComment = document.querySelector('.tab-content');
@@ -380,9 +427,6 @@ if(deleteComment) {
     });
   
     const data = {id: target.dataset.id, user_id, question_id, question_curator_id, table_id, curator_id};
-  
-    // console.log();
-    // return;
   
     let response = await fetch(`/api/admin/comment/destroy`, {
       method: 'POST',
@@ -441,7 +485,7 @@ if(addUserBtn) {
     response = await response.json();
 
     if(response.status) {
-      alert('Пользователи успешно добавлены');
+      alert(response.message);
       // console.log(response);
       location.reload();
     }

@@ -188,6 +188,34 @@
                         </table>
                     </div>
                 </div>
+
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">Загрузить документы</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <div id="actions" class="row">
+                            <div class="col-lg-12">
+                                <form action="/api/admin/document/store" method="POST" enctype="multipart/form-data" class="upload-form-user">
+                                    <div class="btn-group w-100">
+                                        <label class="btn btn-success col fileinput-button dz-clickable" style="margin-bottom: 0">
+                                            <input type="file" name="files[]" class="upload-files" multiple style="display: none">
+                                            <i class="fas fa-plus"></i>
+                                            <span>Выбрать файлы</span>
+                                        </label>
+                                        <button type="submit" class="btn btn-primary col start document-upload">
+                                            <i class="fas fa-upload"></i>
+                                            <span>Загрузить</span>
+                                        </button>
+                                    </div>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
             </div>
         </div>
     </div>

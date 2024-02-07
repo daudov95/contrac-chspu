@@ -48,25 +48,6 @@ Route::group(['as' => 'admin.', 'middleware' => ['auth', 'dashboardAccess'], 'pr
 
     });
 
-    // Route::group(['as' => 'criteria.', 'prefix' => 'criterias', 'controller' => CriteriaController::class], function() {
-    //     Route::get('/', 'index')->name('list');
-    //     Route::get('/create', 'create')->name('create');
-    //     Route::post('/store', 'store')->name('store');
-    //     Route::get('/edit/{criteria}', 'edit')->name('edit');
-    //     Route::post('/update', 'update')->name('update');
-    //     Route::post('/destroy', 'destroy')->name('destroy');
-
-    //     Route::get('/{criteria}/questions', 'questions')->name('questions');
-    //     Route::get('/question/create/{criteria}', 'questionCreate')->name('question.create');
-    //     Route::post('/question/store', 'questionStore')->name('question.store');
-    //     Route::get('/question/edit/{criteriaQuestion}', 'questionEdit')->name('question.edit');
-    //     Route::post('/question/update', 'questionUpdate')->name('question.update');
-    //     Route::post('/question/destroy', 'questionDestroy')->name('question.destroy');
-
-    //     Route::get('/{criteria}/users', 'users')->name('users');
-    //     Route::get('/users/{user}', 'user')->name('user');
-    // });
-
 
     Route::group(['as' => 'table.', 'prefix' => 'tables', 'controller' => TableController::class], function() {
         Route::get('/', 'index')->name('list');
