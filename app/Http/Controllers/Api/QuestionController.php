@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\lk\QuestionDocumentStore;
 use App\Http\Requests\Api\lk\QuestionStore;
 use App\Models\Comment;
 use App\Models\SemesterUser;
@@ -118,9 +119,9 @@ class QuestionController extends Controller
     public function documentUpload(Request $request)
     {
 
-        $response = $this->storeFiles($request);
+        return $this->storeFiles($request);
 
-        return response()->json(['status' => true, 'data' => $response]);
+        // return response()->json(['status' => true, 'data' => $response]);
     }
 
 
@@ -148,8 +149,15 @@ class QuestionController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $fileNameToStore = "files/users/user_". $user_id ."/". $filename ."_".time().".".$extension;
                 $check = in_array($extension, $allowedfileExtension);
+
+                $maxSize = 10000;
+                $kb = $file->getSize() * 0.001;
                 
                 if($check) {
+                    if($kb > $maxSize) {
+                        return response()->json(['status'=> false, 'message' => 'Файл не должен весить больше 10 мб.'], 403);
+                    }
+
                     $file->storeAs($fileNameToStore);
                     
                     $new = UserDocument::create([
@@ -163,11 +171,14 @@ class QuestionController extends Controller
                     $new = ['id' => $new->id, 'name' => $filenameOriginal, "path" => $fileNameToStore];
                     $paths = [...$paths, $new];
                 }
+                else {
+                    return response()->json(['status'=> false, 'message' => 'Неверный формат файла'], 403);
+                }
             }
-            return $paths;
+            return response()->json(['status'=> true, 'data' => $paths], 200);
         }
         else {
-            return "Ошибка при загрузке файлов";
+            return response()->json(['status'=> false, 'message' => 'Ошибка при загрузке файлов'], 403);
         }
     }
 
